@@ -1,13 +1,7 @@
 package fnafModel;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.BasicStroke;
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -18,19 +12,15 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.SwingUtilities;
-import javax.swing.JFrame;
 
 @SuppressWarnings("serial")
 public class window extends JPanel implements ActionListener{
 	public JFrame frame = new JFrame();
-	private final int width = 800;
-	private final int height = 400;
 	
 	private static final int graphWidth = 32;
 	private static final int aWidth = 12;
@@ -45,7 +35,6 @@ public class window extends JPanel implements ActionListener{
 	public static boolean lC = false;
 	
 	
-	private static final Stroke GRAPH_STROKE = new BasicStroke(3f);
 	public static List<Point> graphPoints = new ArrayList<>();
 	public static int[] aPos = new int[3];
 	
@@ -296,9 +285,6 @@ public class window extends JPanel implements ActionListener{
 		l.getPreferredSize();
 		l.setBounds(385, 315, 150, 20);
 		frame.add(l);
-		
-		
-		
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(m);
