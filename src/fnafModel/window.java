@@ -36,18 +36,17 @@ public class window extends JPanel implements ActionListener{
 	
 	
 	public static List<Point> graphPoints = new ArrayList<>();
-	public static int[] aPos = new int[3];
+	public static int[] aPos = new int[4];
 	
 	public LinkedList<Integer>[] rooms;
 	
 	public window(LinkedList<Integer>[] graph, int[] POS) {
 		this.rooms = graph;
 		
-		for(int i = 0; i < 3; i++) {
+		for(int i = 0; i < 4; i++) {
 			try {
 				window.aPos[i] = POS[i];
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -61,37 +60,17 @@ public class window extends JPanel implements ActionListener{
 		Graphics2D animatronics = (Graphics2D) g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
-		
-		
-		int x1 = 400; int y1 = 100;
-		graphPoints.add(new Point(x1, y1));
-		
-		x1 = 400; y1 = 200;
-		graphPoints.add(new Point(x1, y1));
-		
-		x1 = 300; y1 = 200;
-		graphPoints.add(new Point(x1, y1));
-		
-		x1 = 500; y1 = 200;
-		graphPoints.add(new Point(x1, y1));
-		
-		x1 = 350; y1 = 250;
-		graphPoints.add(new Point(x1, y1));
-		
-		x1 = 350; y1 = 300;
-		graphPoints.add(new Point(x1, y1));
-		
-		x1 = 300; y1 = 250;
-		graphPoints.add(new Point(x1, y1));
-		
-		x1 = 450; y1 = 250;
-		graphPoints.add(new Point(x1, y1));
-		
-		x1 = 450; y1 = 300;
-		graphPoints.add(new Point(x1, y1));
-		
-		x1 = 400; y1 = 300;
-		graphPoints.add(new Point(x1, y1));
+		graphPoints.add(new Point(400, 100)); //Point 0
+		graphPoints.add(new Point(400, 200)); //Point 1
+		graphPoints.add(new Point(300, 200)); //Point 2
+		graphPoints.add(new Point(500, 200)); //Point 3
+		graphPoints.add(new Point(350, 250)); //Point 4
+		graphPoints.add(new Point(350, 300)); //Point 5
+		graphPoints.add(new Point(300, 250)); //Point 6
+		graphPoints.add(new Point(450, 250)); //Point 7
+		graphPoints.add(new Point(450, 300)); //Point 8
+		graphPoints.add(new Point(400, 300)); //Point 9
+		graphPoints.add(new Point(325, 160)); //Point 10
 		
 		Stroke oStroke = g2.getStroke();
 		g2.setColor(GRAPH_POINTS);
@@ -129,14 +108,14 @@ public class window extends JPanel implements ActionListener{
 		
 		x = graphPoints.get(4).x;
 		y = graphPoints.get(4).y;
-		x2 = graphPoints.get(6).x;
-		y2 = graphPoints.get(6).y;
+		x2 = graphPoints.get(5).x;
+		y2 = graphPoints.get(5).y;
 		g2.drawLine(x, y, x2, y2);
 		
 		x = graphPoints.get(4).x;
 		y = graphPoints.get(4).y;
-		x2 = graphPoints.get(5).x;
-		y2 = graphPoints.get(5).y;
+		x2 = graphPoints.get(6).x;
+		y2 = graphPoints.get(6).y;
 		g2.drawLine(x, y, x2, y2);
 		
 		x = graphPoints.get(7).x;
@@ -193,6 +172,11 @@ public class window extends JPanel implements ActionListener{
 		x = graphPoints.get(aPos[2]).x;
 		y = graphPoints.get(aPos[2]).y;
 		animatronics.fillOval(x-11, y+2, aWidth, aWidth);
+		
+		animatronics.setColor(Color.orange);
+		x = graphPoints.get(aPos[3]).x;
+		y = graphPoints.get(aPos[3]).y;
+		animatronics.fillOval(x, y, aWidth, aWidth);
 	}
 	
 	@Override
