@@ -72,7 +72,7 @@ public class window extends JPanel implements ActionListener{
 			graphPoints.add(new Point(400, 100)); //Point 0 - Stage
 			graphPoints.add(new Point(400, 200)); //Point 1 - Main Dining
 			graphPoints.add(new Point(300, 200)); //Point 2 - Backroom
-			graphPoints.add(new Point(500, 200)); //Point 3 - Bathrooms
+			graphPoints.add(new Point(540, 200)); //Point 3 - Bathrooms
 			graphPoints.add(new Point(350, 250)); //Point 4 - W Upper
 			graphPoints.add(new Point(350, 300)); //Point 5 - W Lower
 			graphPoints.add(new Point(300, 250)); //Point 6 - Closet
@@ -80,8 +80,9 @@ public class window extends JPanel implements ActionListener{
 			graphPoints.add(new Point(450, 300)); //Point 8 - E Lower
 			graphPoints.add(new Point(400, 300)); //Point 9 - Office
 			graphPoints.add(new Point(325, 160)); //Point 10 - Pirate's Cove
+			graphPoints.add(new Point(540, 250)); //Point 11 - Kitchen
 			
-			g2.setColor(Color.red);
+			g2.setColor(Color.blue);
 			g2.fillRect(0, 0, 800, 600);
 			
 			Stroke oStroke = g2.getStroke();
@@ -148,6 +149,12 @@ public class window extends JPanel implements ActionListener{
 			y2 = graphPoints.get(9).y;
 			g2.drawLine(x, y, x2, y2);
 			
+			x = graphPoints.get(1).x;
+			y = graphPoints.get(1).y;
+			x2 = graphPoints.get(11).x;
+			y2 = graphPoints.get(11).y;
+			g2.drawLine(x, y, x2, y2);
+			
 			g2.setStroke(oStroke);
 			g2.setColor(GRAPH_LINES);
 			
@@ -192,12 +199,39 @@ public class window extends JPanel implements ActionListener{
 			
 			g2.setColor(Color.yellow);
 			g2.fillRect(20, 550, power * 4, 25);
+			
+			g2.setColor(Color.green);
+			g2.fillRect(20, 500, 30, 20);
+			
+			if(window.bar == 1) {
+				g2.setColor(Color.green);
+				g2.fillRect(20, 500, 30, 20);
+			}
+			else if(window.bar == 2) {
+				g2.setColor(Color.green);
+				g2.fillRect(20, 500, 30, 20);
+				
+				g2.setColor(Color.yellow);
+				g2.fillRect(20, 470, 30, 20);
+			}
+			else if(window.bar == 3) {
+				g2.setColor(Color.green);
+				g2.fillRect(20, 500, 30, 20);
+				
+				g2.setColor(Color.yellow);
+				g2.fillRect(20, 470, 30, 20);
+				
+				g2.setColor(Color.yellow);
+				g2.fillRect(20, 440, 30, 20);
+			}
+			
 		}
 		else {
 			Graphics2D g2 = (Graphics2D) g;
 			g2.setColor(Color.black);
 			g2.fillRect(0, 0, 800, 600);
 		}
+		
 	}
 	
 	@Override
@@ -380,137 +414,3 @@ public class window extends JPanel implements ActionListener{
 		
 	}
 }
-
-/*
- * 	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D) g;
-		Graphics2D animatronics = (Graphics2D) g;
-		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		
-		graphPoints.add(new Point(400, 100)); //Point 0 - Stage
-		graphPoints.add(new Point(400, 200)); //Point 1 - Main Dining
-		graphPoints.add(new Point(300, 200)); //Point 2 - Backroom
-		graphPoints.add(new Point(500, 200)); //Point 3 - Bathrooms
-		graphPoints.add(new Point(350, 250)); //Point 4 - W Upper
-		graphPoints.add(new Point(350, 300)); //Point 5 - W Lower
-		graphPoints.add(new Point(300, 250)); //Point 6 - Closet
-		graphPoints.add(new Point(450, 250)); //Point 7 - E Upper
-		graphPoints.add(new Point(450, 300)); //Point 8 - E Lower
-		graphPoints.add(new Point(400, 300)); //Point 9 - Office
-		graphPoints.add(new Point(325, 160)); //Point 10 - Pirate's Cove
-		
-		g2.setColor(Color.red);
-		g2.fillRect(0, 0, 800, 600);
-		
-		Stroke oStroke = g2.getStroke();
-		g2.setColor(GRAPH_POINTS);
-		g2.setStroke(oStroke);
-		
-		int x = graphPoints.get(0).x;
-		int y = graphPoints.get(0).y;
-		int x2 = graphPoints.get(1).x;
-		int y2 = graphPoints.get(1).y;
-		g2.drawLine(x, y, x2, y2);
-		
-		x = graphPoints.get(1).x;
-		y = graphPoints.get(1).y;
-		x2 = graphPoints.get(2).x;
-		y2 = graphPoints.get(2).y;
-		g2.drawLine(x, y, x2, y2);
-		
-		x = graphPoints.get(1).x;
-		y = graphPoints.get(1).y;
-		x2 = graphPoints.get(3).x;
-		y2 = graphPoints.get(3).y;
-		g2.drawLine(x, y, x2, y2);
-		
-		x = graphPoints.get(1).x;
-		y = graphPoints.get(1).y;
-		x2 = graphPoints.get(4).x;
-		y2 = graphPoints.get(4).y;
-		g2.drawLine(x, y, x2, y2);
-		
-		x = graphPoints.get(1).x;
-		y = graphPoints.get(1).y;
-		x2 = graphPoints.get(7).x;
-		y2 = graphPoints.get(7).y;
-		g2.drawLine(x, y, x2, y2);
-		
-		x = graphPoints.get(4).x;
-		y = graphPoints.get(4).y;
-		x2 = graphPoints.get(5).x;
-		y2 = graphPoints.get(5).y;
-		g2.drawLine(x, y, x2, y2);
-		
-		x = graphPoints.get(4).x;
-		y = graphPoints.get(4).y;
-		x2 = graphPoints.get(6).x;
-		y2 = graphPoints.get(6).y;
-		g2.drawLine(x, y, x2, y2);
-		
-		x = graphPoints.get(7).x;
-		y = graphPoints.get(7).y;
-		x2 = graphPoints.get(8).x;
-		y2 = graphPoints.get(8).y;
-		g2.drawLine(x, y, x2, y2);
-		
-		x = graphPoints.get(5).x;
-		y = graphPoints.get(5).y;
-		x2 = graphPoints.get(9).x;
-		y2 = graphPoints.get(9).y;
-		g2.drawLine(x, y, x2, y2);
-		
-		x = graphPoints.get(8).x;
-		y = graphPoints.get(8).y;
-		x2 = graphPoints.get(9).x;
-		y2 = graphPoints.get(9).y;
-		g2.drawLine(x, y, x2, y2);
-		
-		g2.setStroke(oStroke);
-		g2.setColor(GRAPH_LINES);
-		
-		for(int i = 0; i < graphPoints.size(); i++) {
-			x = graphPoints.get(i).x - graphWidth/2;
-			y = graphPoints.get(i).y - graphWidth/2;
-			int ovalW = graphWidth;
-			int ovalH = graphWidth;
-			
-			g2.fillOval(x, y, ovalW, ovalH);
-		}
-		
-		g2.setStroke(oStroke);
-		g2.setColor(Color.black);
-		if(rC) {
-			g2.drawLine(430, 280, 430, 320);
-		}
-		
-		if(lC) {
-			g2.drawLine(370, 280, 370, 320);
-		}
-		
-		animatronics.setColor(Color.red);
-		x = graphPoints.get(aPos[0]).x;
-		y = graphPoints.get(aPos[0]).y;
-		animatronics.fillOval(x-11, y-12, aWidth, aWidth);
-		
-		animatronics.setColor(Color.blue);
-		x = graphPoints.get(aPos[1]).x;
-		y = graphPoints.get(aPos[1]).y;
-		animatronics.fillOval(x+2, y-12, aWidth, aWidth);
-		
-		animatronics.setColor(Color.yellow);
-		x = graphPoints.get(aPos[2]).x;
-		y = graphPoints.get(aPos[2]).y;
-		animatronics.fillOval(x-11, y+2, aWidth, aWidth);
-		
-		animatronics.setColor(Color.orange);
-		x = graphPoints.get(aPos[3]).x;
-		y = graphPoints.get(aPos[3]).y;
-		animatronics.fillOval(x, y, aWidth, aWidth);
-		
-		g2.setColor(Color.yellow);
-		g2.fillRect(20, 550, power * 4, 25);
-	}
- * */

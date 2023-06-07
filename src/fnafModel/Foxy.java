@@ -17,9 +17,9 @@ public class Foxy {
 		triedEntry = false;
 		
 		place = new Node(10);
-		place.next = new Node(4);
-		place.next.next = new Node(5);
-		place.next.next.next = place;
+		place.next1 = new Node(4);
+		place.next1.next1 = new Node(5);
+		place.next1.next1.next1 = place;
 	}
 	
 	protected void move(boolean closedL) {
@@ -30,13 +30,13 @@ public class Foxy {
 		}
 		
 		else if(phase == 4 && this.place.spot != 5) {
-			place = place.next;
+			place = place.next1;
 		}
 		
 		else if(this.place.spot == 5) {
 			if(triedEntry) {
 				phase = 0;
-				place = place.next;
+				place = place.next1;
 				triedEntry = false;
 			}
 			else {
@@ -48,14 +48,23 @@ public class Foxy {
 		}
 	}
 	
+	public int powerYoink(int p) {
+		p -= r.nextInt(7)+1;
+		return p;
+	}
+	
 }
 
 class Node {
-	Node next;
+	Node next1;
+	Node next2;
+	Node next3;
 	int spot;
 	
 	Node(int d){
 		this.spot = d;
-		this.next = null;
+		this.next1 = null;
+		this.next2 = null;
+		this.next3 = null;
 	}
 }
