@@ -6,7 +6,7 @@ import java.util.Random;
 public class Foxy {
 	int phase = 0;
 	int level;
-	boolean triedEntry;
+	boolean triedEntry, onProwl;
 	
 	Node place;
 	Random r = new Random();
@@ -15,6 +15,7 @@ public class Foxy {
 		this.phase = 0;
 		this.level = level;
 		triedEntry = false;
+		this.onProwl = false;
 		
 		place = new Node(10);
 		place.next1 = new Node(4);
@@ -31,6 +32,8 @@ public class Foxy {
 		
 		else if(phase == 4 && this.place.spot != 5) {
 			place = place.next1;
+			this.onProwl = true;
+			
 		}
 		
 		else if(this.place.spot == 5) {
@@ -38,6 +41,7 @@ public class Foxy {
 				phase = 0;
 				place = place.next1;
 				triedEntry = false;
+				this.onProwl = false;
 			}
 			else {
 				triedEntry = true;

@@ -43,11 +43,10 @@ public class window extends JPanel implements ActionListener{
 	public static JLabel time;
 	public static int bar;
 	public static boolean game = true;
+	public static int startUp = 1;
+	public static boolean camOn;
 	
-	public LinkedList<Integer>[] rooms;
-	
-	public window(LinkedList<Integer>[] graph, int[] POS) {
-		this.rooms = graph;
+	public window(int[] POS) {
 		window.k = new JLabel();
 		window.time = new JLabel();
 		window.bar = 1;
@@ -226,6 +225,9 @@ public class window extends JPanel implements ActionListener{
 			}
 			
 		}
+		else if(!window.game) {
+			
+		}
 		else {
 			Graphics2D g2 = (Graphics2D) g;
 			g2.setColor(Color.black);
@@ -240,100 +242,108 @@ public class window extends JPanel implements ActionListener{
 	}
 	
 	
-	private void showGui(LinkedList<Integer>[] r, int[] anPos) {
-		window m = new window(r, anPos);
+	private void showGui(int[] anPos) {
+		window m = new window(anPos);
 		
 		m.setPreferredSize(getPreferredSize());
-		rClose.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(rC) {
-					rC = false;
-					bar--;
-				}
-				else {
-					rC = true;
-					bar++;
-				}
-			}
-		});
 		
-		lClose.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(lC) {
-					lC = false;
-					bar--;
+		if(startUp == 0) {
+			
+		}
+		else if(window.game) {
+			rClose.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(rC) {
+						rC = false;
+						bar--;
+					}
+					else {
+						rC = true;
+						bar++;
+					}
 				}
-				else {
-					lC = true;
-					bar++;
+			});
+			
+			lClose.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(lC) {
+						lC = false;
+						bar--;
+					}
+					else {
+						lC = true;
+						bar++;
+					}
 				}
-			}
-		});
-		
-		m.add(rClose);
-		m.add(lClose);
+			});
+			
+			m.add(rClose);
+			m.add(lClose);
+			
+			frame.add(m);
+					
+			JLabel l = new JLabel("Stage");
+			l.getPreferredSize();
+			l.setBounds(400, 65, 40, 20);
+			frame.add(l);
+			
+			l = new JLabel("Main Dining");
+			l.getPreferredSize();
+			l.setBounds(410, 170, 110, 20);
+			frame.add(l);
+			
+			l = new JLabel("Backroom");
+			l.getPreferredSize();
+			l.setBounds(310, 170, 70, 20);
+			frame.add(l);
+			
+			l = new JLabel("Bathrooms");
+			l.getPreferredSize();
+			l.setBounds(510, 170, 75, 20);
+			frame.add(l);
+			
+			l = new JLabel("W Upper");
+			l.getPreferredSize();
+			l.setBounds(365, 235, 150, 20);
+			frame.add(l);
+			
+			l = new JLabel("W Lower");
+			l.getPreferredSize();
+			l.setBounds(295, 315, 150, 20);
+			frame.add(l);
+			
+			l = new JLabel("E Upper");
+			l.getPreferredSize();
+			l.setBounds(467, 233, 150, 20);
+			frame.add(l);
+			
+			l = new JLabel("E Lower");
+			l.getPreferredSize();
+			l.setBounds(450, 315, 150, 20);
+			frame.add(l);
+			
+			l = new JLabel("Closet");
+			l.getPreferredSize();
+			l.setBounds(295, 215, 50, 20);
+			frame.add(l);
+			
+			l = new JLabel("Office");
+			l.getPreferredSize();
+			l.setBounds(385, 315, 150, 20);
+			frame.add(l);
+			
+			k.setText("Power: " + power);
+			k.getPreferredSize();
+			k.setBounds(20, 525, 150, 20);
+			frame.add(k);
+			
+			time.setText("12 A.M.");
+			time.getPreferredSize();
+			time.setBounds(20, 20, 150, 20);
+			frame.add(time);
+		}
 		
 		frame.add(m);
-				
-		JLabel l = new JLabel("Stage");
-		l.getPreferredSize();
-		l.setBounds(400, 65, 40, 20);
-		frame.add(l);
-		
-		l = new JLabel("Main Dining");
-		l.getPreferredSize();
-		l.setBounds(410, 170, 110, 20);
-		frame.add(l);
-		
-		l = new JLabel("Backroom");
-		l.getPreferredSize();
-		l.setBounds(310, 170, 70, 20);
-		frame.add(l);
-		
-		l = new JLabel("Bathrooms");
-		l.getPreferredSize();
-		l.setBounds(510, 170, 75, 20);
-		frame.add(l);
-		
-		l = new JLabel("W Upper");
-		l.getPreferredSize();
-		l.setBounds(365, 235, 150, 20);
-		frame.add(l);
-		
-		l = new JLabel("W Lower");
-		l.getPreferredSize();
-		l.setBounds(295, 315, 150, 20);
-		frame.add(l);
-		
-		l = new JLabel("E Upper");
-		l.getPreferredSize();
-		l.setBounds(467, 233, 150, 20);
-		frame.add(l);
-		
-		l = new JLabel("E Lower");
-		l.getPreferredSize();
-		l.setBounds(450, 315, 150, 20);
-		frame.add(l);
-		
-		l = new JLabel("Closet");
-		l.getPreferredSize();
-		l.setBounds(295, 215, 50, 20);
-		frame.add(l);
-		
-		l = new JLabel("Office");
-		l.getPreferredSize();
-		l.setBounds(385, 315, 150, 20);
-		frame.add(l);
-		
-		k.setText("Power: " + power);
-		k.getPreferredSize();
-		k.setBounds(20, 525, 150, 20);
-		frame.add(k);
-		
-		time.setText("12 A.M.");
-		time.getPreferredSize();
-		time.setBounds(20, 20, 150, 20);
-		frame.add(time);
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(m);
@@ -399,10 +409,10 @@ public class window extends JPanel implements ActionListener{
 		}
 	}
 	
-	public void run(LinkedList<Integer>[] r, int[] anPos) {
+	public void run(int[] anPos) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				showGui(r, anPos);
+				showGui(anPos);
 				repaint();
 			}
 		});

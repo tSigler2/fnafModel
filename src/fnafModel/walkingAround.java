@@ -7,31 +7,34 @@ public class walkingAround {
 		int FredCount = 0, BonCount = 0, ChicCount = 0, FoxyCount = 0; 
 		boolean rJam = false, lJam = false; int rJamCount = 0, lJamCount = 0;
 		
-		animatronics Freddy = new animatronics(0, 4); Freddy.FredDefine();
-		animatronics Bonny = new animatronics(0, 5); Bonny.BonDefine();
-		animatronics Chica = new animatronics(0, 7); Chica.ChicDefine();
-		Foxy Foxy = new Foxy(5);
+		animatronics Freddy = new animatronics(0, 20); Freddy.FredDefine();
+		animatronics Bonny = new animatronics(0, 20); Bonny.BonDefine();
+		animatronics Chica = new animatronics(0, 20); Chica.ChicDefine();
+		Foxy Foxy = new Foxy(0);
 		
 		int[] posArray = new int[4];
 		
-		GraphClass g = makeMap();
-		window w = new window(g.edges, posArray);
-		w.run(g.edges, posArray);
+		window w = new window(posArray);
+		w.run(posArray);
+		
+		while(window.startUp == 0) {
+			
+		}
 		
 		for(int i = 0; i < 1070; i++) {
 			if(FredCount == 5) {
-				Freddy.walk(g.edges, window.rC, window.lC);
+				Freddy.walk(window.rC, window.lC);
 				FredCount = 0;
 			}
 			if(BonCount == 8) {
-				Bonny.walk(g.edges, window.rC, window.lC);
+				Bonny.walk(window.rC, window.lC);
 				BonCount = 0;
 			}
 			if(ChicCount == 8) {
-				Chica.walk(g.edges, window.rC, window.lC);
+				Chica.walk(window.rC, window.lC);
 				ChicCount = 0;
 			}
-			if(FoxyCount == 8) {
+			if(FoxyCount == 8 || (FoxyCount%2 == 0 && Foxy.onProwl == true)) {
 				Foxy.move(window.lC);
 				FoxyCount = 0;
 			}
@@ -83,22 +86,5 @@ public class walkingAround {
 		}
 		
 		w.endOfGame(outcome);
-	}
-	
-	private static GraphClass makeMap() {
-		GraphClass map = new GraphClass(11);
-		map.addEdges(0, 1);
-		map.addEdges(1, 2);
-		map.addEdges(1, 3);
-		map.addEdges(1, 4);
-		map.addEdges(1, 7);
-		map.addEdges(4, 5);
-		map.addEdges(4, 6);
-		map.addEdges(5, 9);
-		map.addEdges(7, 8);
-		map.addEdges(8, 9);
-		map.addEdges(1, 10);
-		
-		return map;
 	}
 }

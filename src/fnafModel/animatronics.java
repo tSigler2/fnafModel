@@ -16,7 +16,7 @@ public class animatronics {
 		this.aRoom = new Node(0);
 	}
 	
-	void walk(LinkedList<Integer>[] l, boolean rC, boolean lC) throws NullPointerException {
+	void walk(boolean rC, boolean lC) throws NullPointerException {
 		try {
 			int k = r.nextInt(20);
 			
