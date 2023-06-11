@@ -5,21 +5,22 @@ public class walkingAround {
 		int outcome = 0;
 		int powerAmount = 100, powerCount = 0;
 		int FredCount = 0, BonCount = 0, ChicCount = 0, FoxyCount = 0; 
-		boolean rJam = false, lJam = false; int rJamCount = 0, lJamCount = 0;
-		
-		animatronics Freddy = new animatronics(0, 20); Freddy.FredDefine();
-		animatronics Bonny = new animatronics(0, 20); Bonny.BonDefine();
-		animatronics Chica = new animatronics(0, 20); Chica.ChicDefine();
-		Foxy Foxy = new Foxy(0);
+		int rJamCount = 0, lJamCount = 0;
 		
 		int[] posArray = new int[4];
 		
 		window w = new window(posArray);
-		w.run(posArray);
 		
-		while(window.startUp == 0) {
-			
-		}
+		w.startGame(posArray);
+		
+		while(!window.game) Thread.sleep(1);
+		
+		animatronics Freddy = new animatronics(0, window.aLevel[0]); Freddy.FredDefine();
+		animatronics Bonny = new animatronics(0, window.aLevel[0]); Bonny.BonDefine();
+		animatronics Chica = new animatronics(0, window.aLevel[0]); Chica.ChicDefine();
+		Foxy Foxy = new Foxy(window.aLevel[0]);
+		
+		w.run(posArray);
 		
 		for(int i = 0; i < 1070; i++) {
 			if(FredCount == 5) {
@@ -28,10 +29,18 @@ public class walkingAround {
 			}
 			if(BonCount == 8) {
 				Bonny.walk(window.rC, window.lC);
+				if(Bonny.aRoom.next2 == Chica.office) {
+					window.lJam = Bonny.doorJam();
+					lJamCount = 20;
+				}
 				BonCount = 0;
 			}
 			if(ChicCount == 8) {
 				Chica.walk(window.rC, window.lC);
+				if(Chica.aRoom.next2 == Chica.office) {
+					window.rJam = Chica.doorJam();
+					rJamCount = 20;
+				}
 				ChicCount = 0;
 			}
 			if(FoxyCount == 8 || (FoxyCount%2 == 0 && Foxy.onProwl == true)) {
@@ -52,6 +61,13 @@ public class walkingAround {
 			w.changeTime(i);
 			
 			powerCount++;
+			
+			if(window.rJam) {
+				rJamCount--;
+			}
+			if(window.lJam) {
+				lJamCount--;
+			}
 			
 			if(powerCount == 20 && powerAmount > 0) {
 				powerAmount -= window.bar;
@@ -82,6 +98,13 @@ public class walkingAround {
 			
 			if(Foxy.triedEntry) {
 				powerAmount = Foxy.powerYoink(powerAmount);
+			}
+			
+			if(window.rJam && rJamCount == 0) {
+				window.rJam = false;
+			}
+			if(window.lJam && lJamCount == 0) {
+				window.lJam = false;
 			}
 		}
 		

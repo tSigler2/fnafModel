@@ -11,12 +11,14 @@ import java.awt.Stroke;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerModel;
 import javax.swing.JButton;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 
 @SuppressWarnings("serial")
@@ -31,20 +33,29 @@ public class window extends JPanel implements ActionListener{
 	
 	private static JButton rClose = new JButton("Close Right");
 	private static JButton lClose = new JButton("Close Left");
+	private static JButton beginGame = new JButton("Start");
 	
 	public static boolean rC = false;
 	public static boolean lC = false;
 	
+	public static int[] graphLines = {0, 1, 1, 2, 1, 3, 1, 4, 1, 7, 4, 5, 4, 6, 7, 8, 5, 9, 8, 9, 1, 11};
 	
 	public static List<Point> graphPoints = new ArrayList<>();
 	public static int[] aPos = new int[4];
-	public static int power;
-	public static JLabel k;
-	public static JLabel time;
-	public static int bar;
-	public static boolean game = true;
-	public static int startUp = 1;
-	public static boolean camOn;
+	public static int[] aLevel = new int[4];
+	public static JLabel k, time;
+	public static int bar, power, startUp = 1;
+	public static boolean game = false, camOn, rJam = false, lJam = false;
+	
+	private static Color[] c = {Color.red, Color.blue, Color.yellow, Color.orange};
+	private static int[] offsetX = {11, -2, 11, 0};
+	private static int[] offsetY = {12, 12, -2, 0};
+	
+	private static JSpinner FredSpin = new JSpinner(new SpinnerNumberModel(0, 0, 20, 1));
+	private static JSpinner BonSpin = new JSpinner(new SpinnerNumberModel(0, 0, 20, 1));
+	private static JSpinner ChicSpin = new JSpinner(new SpinnerNumberModel(0, 0, 20, 1));
+	private static JSpinner FoxySpin = new JSpinner(new SpinnerNumberModel(0, 0, 20, 1));
+	
 	
 	public window(int[] POS) {
 		window.k = new JLabel();
@@ -62,8 +73,8 @@ public class window extends JPanel implements ActionListener{
 	
 	@Override
 	protected void paintComponent(Graphics g) {
-		if(window.game) {
-			super.paintComponent(g);
+		super.paintComponent(g);
+		if(window.game){
 			Graphics2D g2 = (Graphics2D) g;
 			Graphics2D animatronics = (Graphics2D) g;
 			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -88,82 +99,15 @@ public class window extends JPanel implements ActionListener{
 			g2.setColor(GRAPH_POINTS);
 			g2.setStroke(oStroke);
 			
-			int x = graphPoints.get(0).x;
-			int y = graphPoints.get(0).y;
-			int x2 = graphPoints.get(1).x;
-			int y2 = graphPoints.get(1).y;
-			g2.drawLine(x, y, x2, y2);
-			
-			x = graphPoints.get(1).x;
-			y = graphPoints.get(1).y;
-			x2 = graphPoints.get(2).x;
-			y2 = graphPoints.get(2).y;
-			g2.drawLine(x, y, x2, y2);
-			
-			x = graphPoints.get(1).x;
-			y = graphPoints.get(1).y;
-			x2 = graphPoints.get(3).x;
-			y2 = graphPoints.get(3).y;
-			g2.drawLine(x, y, x2, y2);
-			
-			x = graphPoints.get(1).x;
-			y = graphPoints.get(1).y;
-			x2 = graphPoints.get(4).x;
-			y2 = graphPoints.get(4).y;
-			g2.drawLine(x, y, x2, y2);
-			
-			x = graphPoints.get(1).x;
-			y = graphPoints.get(1).y;
-			x2 = graphPoints.get(7).x;
-			y2 = graphPoints.get(7).y;
-			g2.drawLine(x, y, x2, y2);
-			
-			x = graphPoints.get(4).x;
-			y = graphPoints.get(4).y;
-			x2 = graphPoints.get(5).x;
-			y2 = graphPoints.get(5).y;
-			g2.drawLine(x, y, x2, y2);
-			
-			x = graphPoints.get(4).x;
-			y = graphPoints.get(4).y;
-			x2 = graphPoints.get(6).x;
-			y2 = graphPoints.get(6).y;
-			g2.drawLine(x, y, x2, y2);
-			
-			x = graphPoints.get(7).x;
-			y = graphPoints.get(7).y;
-			x2 = graphPoints.get(8).x;
-			y2 = graphPoints.get(8).y;
-			g2.drawLine(x, y, x2, y2);
-			
-			x = graphPoints.get(5).x;
-			y = graphPoints.get(5).y;
-			x2 = graphPoints.get(9).x;
-			y2 = graphPoints.get(9).y;
-			g2.drawLine(x, y, x2, y2);
-			
-			x = graphPoints.get(8).x;
-			y = graphPoints.get(8).y;
-			x2 = graphPoints.get(9).x;
-			y2 = graphPoints.get(9).y;
-			g2.drawLine(x, y, x2, y2);
-			
-			x = graphPoints.get(1).x;
-			y = graphPoints.get(1).y;
-			x2 = graphPoints.get(11).x;
-			y2 = graphPoints.get(11).y;
-			g2.drawLine(x, y, x2, y2);
+			for(int i = 0; i < graphLines.length; i+=2) {
+				g2.drawLine(graphPoints.get(graphLines[i]).x, graphPoints.get(graphLines[i]).y, graphPoints.get(graphLines[i+1]).x, graphPoints.get(graphLines[i+1]).y);
+			}
 			
 			g2.setStroke(oStroke);
 			g2.setColor(GRAPH_LINES);
 			
 			for(int i = 0; i < graphPoints.size(); i++) {
-				x = graphPoints.get(i).x - graphWidth/2;
-				y = graphPoints.get(i).y - graphWidth/2;
-				int ovalW = graphWidth;
-				int ovalH = graphWidth;
-				
-				g2.fillOval(x, y, ovalW, ovalH);
+				g2.fillOval(graphPoints.get(i).x - graphWidth/2, graphPoints.get(i).y - graphWidth/2, graphWidth, graphWidth);
 			}
 			
 			g2.setStroke(oStroke);
@@ -176,64 +120,40 @@ public class window extends JPanel implements ActionListener{
 				g2.drawLine(370, 280, 370, 320);
 			}
 			
-			animatronics.setColor(Color.red);
-			x = graphPoints.get(aPos[0]).x;
-			y = graphPoints.get(aPos[0]).y;
-			animatronics.fillOval(x-11, y-12, aWidth, aWidth);
 			
-			animatronics.setColor(Color.blue);
-			x = graphPoints.get(aPos[1]).x;
-			y = graphPoints.get(aPos[1]).y;
-			animatronics.fillOval(x+2, y-12, aWidth, aWidth);
+			for(int i = 0; i < 4; i++){
+				animatronics.setColor(c[i]);
+				animatronics.fillOval(graphPoints.get(aPos[i]).x - offsetX[i], graphPoints.get(aPos[i]).y - offsetY[i], aWidth, aWidth);
+			}
 			
-			animatronics.setColor(Color.yellow);
-			x = graphPoints.get(aPos[2]).x;
-			y = graphPoints.get(aPos[2]).y;
-			animatronics.fillOval(x-11, y+2, aWidth, aWidth);
-			
-			animatronics.setColor(Color.orange);
-			x = graphPoints.get(aPos[3]).x;
-			y = graphPoints.get(aPos[3]).y;
-			animatronics.fillOval(x, y, aWidth, aWidth);
 			
 			g2.setColor(Color.yellow);
 			g2.fillRect(20, 550, power * 4, 25);
 			
-			g2.setColor(Color.green);
-			g2.fillRect(20, 500, 30, 20);
-			
-			if(window.bar == 1) {
+			if(window.bar >= 1) {
 				g2.setColor(Color.green);
 				g2.fillRect(20, 500, 30, 20);
 			}
-			else if(window.bar == 2) {
-				g2.setColor(Color.green);
-				g2.fillRect(20, 500, 30, 20);
-				
+			if(window.bar >= 2) {
 				g2.setColor(Color.yellow);
 				g2.fillRect(20, 470, 30, 20);
 			}
-			else if(window.bar == 3) {
-				g2.setColor(Color.green);
-				g2.fillRect(20, 500, 30, 20);
-				
-				g2.setColor(Color.yellow);
-				g2.fillRect(20, 470, 30, 20);
-				
+			if(window.bar == 3) {
 				g2.setColor(Color.yellow);
 				g2.fillRect(20, 440, 30, 20);
 			}
-			
 		}
-		else if(!window.game) {
+		else if(!(window.game) && window.startUp == 1) {
+			Graphics2D g2d = (Graphics2D) g;
 			
+			g2d.setColor(Color.orange);
+			g2d.fillRect(0, 0, 800, 600);
 		}
 		else {
-			Graphics2D g2 = (Graphics2D) g;
-			g2.setColor(Color.black);
-			g2.fillRect(0, 0, 800, 600);
+			Graphics2D g2dEnd = (Graphics2D) g;
+			g2dEnd.setColor(Color.red);
+			g2dEnd.fillRect(0, 0, 800, 600);
 		}
-		
 	}
 	
 	@Override
@@ -244,20 +164,16 @@ public class window extends JPanel implements ActionListener{
 	
 	private void showGui(int[] anPos) {
 		window m = new window(anPos);
-		
 		m.setPreferredSize(getPreferredSize());
 		
-		if(startUp == 0) {
-			
-		}
-		else if(window.game) {
+		if(window.game) {
 			rClose.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if(rC) {
 						rC = false;
 						bar--;
 					}
-					else {
+					else if(!rJam){
 						rC = true;
 						bar++;
 					}
@@ -270,17 +186,15 @@ public class window extends JPanel implements ActionListener{
 						lC = false;
 						bar--;
 					}
-					else {
+					else if(!lJam){
 						lC = true;
 						bar++;
 					}
 				}
 			});
 			
-			m.add(rClose);
 			m.add(lClose);
-			
-			frame.add(m);
+			m.add(rClose);
 					
 			JLabel l = new JLabel("Stage");
 			l.getPreferredSize();
@@ -332,6 +246,16 @@ public class window extends JPanel implements ActionListener{
 			l.setBounds(385, 315, 150, 20);
 			frame.add(l);
 			
+			l = new JLabel("Kitchen");
+			l.getPreferredSize();
+			l.setBounds(550, 260, 150, 20);
+			frame.add(l);
+			
+			l = new JLabel("Pirate's Cove");
+			l.getPreferredSize();
+			l.setBounds(225, 150, 150, 20);
+			frame.add(l);
+			
 			k.setText("Power: " + power);
 			k.getPreferredSize();
 			k.setBounds(20, 525, 150, 20);
@@ -341,15 +265,9 @@ public class window extends JPanel implements ActionListener{
 			time.getPreferredSize();
 			time.setBounds(20, 20, 150, 20);
 			frame.add(time);
+			
+			frame.add(m);
 		}
-		
-		frame.add(m);
-		
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().add(m);
-		frame.pack();
-		frame.setLocationByPlatform(true);
-		frame.setVisible(true);
 	}
 	
 	public void updateA(int[] animPos, int p) {
@@ -362,8 +280,91 @@ public class window extends JPanel implements ActionListener{
 			window.lC = false;
 			window.rC = false;
 		}
+		System.out.println("");
 		frame.repaint();
 		frame.validate();
+	}
+	
+	public void startGame(int[] anPos) {
+		window m = new window(anPos);
+		m.setPreferredSize(getPreferredSize());
+		frame.repaint();
+		
+		JLabel Fred = new JLabel("Freddy");
+		Fred.getPreferredSize();
+		Fred.setBounds(50, 20, 50, 20);
+		frame.add(Fred);
+		
+		JLabel added = new JLabel("(Red Circle)");
+		added.getPreferredSize();
+		added.setBounds(50, 80, 100, 20);
+		frame.add(added);
+		
+		JLabel Bon = new JLabel("Bonnie");
+		Bon.getPreferredSize();
+		Bon.setBounds(225, 20, 50, 20);
+		frame.add(Bon);
+		
+		added = new JLabel("(Blue Circle)");
+		added.getPreferredSize();
+		added.setBounds(225, 80, 100, 20);
+		frame.add(added);
+		
+		JLabel Chic = new JLabel("Chica");
+		Chic.getPreferredSize();
+		Chic.setBounds(555, 20, 50, 20);
+		frame.add(Chic);
+		
+		added = new JLabel("(Yellow Circle)");
+		added.getPreferredSize();
+		added.setBounds(525, 80, 100, 20);
+		frame.add(added);
+		
+		JLabel Foxy = new JLabel("Foxy");
+		Foxy.getPreferredSize();
+		Foxy.setBounds(730, 20, 50, 20);
+		frame.add(Foxy);
+		
+		added = new JLabel("(Orange Circle)");
+		added.getPreferredSize();
+		added.setBounds(700, 80, 100, 20);
+		frame.add(added);
+		
+		FredSpin.setBounds(50, 40, 50, 40);
+		frame.add(FredSpin);
+		
+		BonSpin.setBounds(225, 40, 50, 40);
+		frame.add(BonSpin);
+		
+		ChicSpin.setBounds(555, 40, 50, 40);
+		frame.add(ChicSpin);
+		
+		FoxySpin.setBounds(730, 40, 50, 40);
+		frame.add(FoxySpin);
+		
+		beginGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				aLevel[0] = (int) FredSpin.getValue();
+				aLevel[1] = (int) BonSpin.getValue();
+				aLevel[2] = (int) ChicSpin.getValue();
+				aLevel[3] = (int) FoxySpin.getValue();
+				frame.getContentPane().removeAll();
+				startUp = 0;
+				window.game = true;
+				m.remove(beginGame);
+				frame.validate();
+			}
+		});
+		beginGame.setBounds(375, 200, 50, 20);
+		
+		m.add(beginGame);
+		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().add(m);
+		frame.pack();
+		frame.setLocationByPlatform(true);
+		frame.setVisible(true);
+		
 	}
 	
 	public void endOfGame(int o) {
@@ -384,7 +385,6 @@ public class window extends JPanel implements ActionListener{
 			frame.add(k);
 		}
 		
-		frame.repaint();
 		frame.validate();
 	}
 	

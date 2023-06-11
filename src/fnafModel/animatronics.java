@@ -1,6 +1,5 @@
 package fnafModel;
 import java.util.Random;
-import java.util.LinkedList;
 
 public class animatronics {
 	int pos;
